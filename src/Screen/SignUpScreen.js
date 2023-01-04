@@ -1,4 +1,4 @@
-import react from 'react';
+import react, { useContext } from 'react';
 import React, {useState, useEffect} from 'react';
 import * as Animatable from 'react-native-animatable';
 import {
@@ -16,24 +16,34 @@ import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import LinearGradient from 'react-native-linear-gradient';
 import Feather from 'react-native-vector-icons/Feather';
+import firestore from '@react-native-firebase/firestore';
+import {PrintDisabledTwoTone} from '@material-ui/icons';
+import { authcontext } from '../Navigation/AuthenticationProvider';
 
 const SignUpScreen = ({navigation}) => {
+
+const {register} = useContext(authcontext);
+const [email,setEmail]=useState();
+const[password,setPassword]=useState();
   const [data, setdata] = react.useState({
-    email: '',
+    Email: '',
     UserName: '',
     Address: '',
     ConfirmPassword: '',
-    password: '',
+    Password: '',
     check_textInputChange: false,
     check_textInputChange2: false,
     check_textInputChange3: false,
     secureTextEntry: true,
     secureTextEntry2: true,
   });
+
+
+
   const PasswordChange = val => {
     setdata({
       ...data,
-      password: val,
+      Password: val,
     });
   };
   const ConfirmPasswordChange = val => {
@@ -58,13 +68,13 @@ const SignUpScreen = ({navigation}) => {
     if (val.length != 0) {
       setdata({
         ...data,
-        email: val,
+        Email: val,
         check_textInputChange: true,
       });
     } else {
       setdata({
         ...data,
-        email: val,
+        Email: val,
         check_textInputChange: false,
       });
     }
@@ -120,7 +130,7 @@ const SignUpScreen = ({navigation}) => {
             placeholder="Your Email..........................................................."
             style={styles.TextInput}
             autoCapitalize="none"
-            onChangeText={val => textInputChange(val)}
+            onChangeText={val => {textInputChange(val); setEmail(val)}}
           />
           {data.check_textInputChange ? (
             <Animatable.View animation={'bounceIn'}>
@@ -166,11 +176,11 @@ const SignUpScreen = ({navigation}) => {
           <Feather name="lock" color="#05375a" size={30} />
           <View>
             <TextInput
-              placeholder="password....................................."
+              placeholder="password............................................................"
               style={styles.TextInput}
               secureTextEntry={data.secureTextEntry ? true : false}
               autoCapitalize="None"
-              onChangeText={val => PasswordChange(val)}></TextInput>
+              onChangeText={val => {PasswordChange(val);setPassword(val)}}></TextInput>
           </View>
         </View>
         <View>
@@ -190,7 +200,7 @@ const SignUpScreen = ({navigation}) => {
           <Feather name="lock" color="#05375a" size={30} />
           <View>
             <TextInput
-              placeholder="Confirm password....................................."
+              placeholder="Confirm password.............................................."
               style={styles.TextInput}
               secureTextEntry={data.secureTextEntry2 ? true : false}
               autoCapitalize="None"
@@ -208,9 +218,8 @@ const SignUpScreen = ({navigation}) => {
           </TouchableOpacity>
         </View>
         <View>
-          <TouchableOpacity
-            onPress={() => navigation.navigate('SignUpScreen')}
-            style={styles.buttonStyle}>
+          <TouchableOpacity style={styles.buttonStyle}
+          onPress={()=> register(email,password)}>
             <Text style={styles.textSign}>Sign Up</Text>
           </TouchableOpacity>
         </View>
@@ -264,7 +273,7 @@ const styles = StyleSheet.create({
     marginTop: 1,
     borderBottomWidth: 1,
     borderBottomColor: '#f2f2f2',
-    paddingBottom:0,
+    paddingBottom: 0,
   },
 
   logo: {
