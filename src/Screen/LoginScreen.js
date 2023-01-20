@@ -1,4 +1,4 @@
-import react from 'react';
+import react, { useContext } from 'react';
 import React, {useState, useEffect} from 'react';
 import * as Animatable from 'react-native-animatable';
 import {
@@ -12,12 +12,17 @@ import {
   TextInput,
   Platform,
 } from 'react-native';
-import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+//import { GoogleSignin, GoogleSigninButton } from '@react-native-google-signin/google-signin';
+
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import LinearGradient from 'react-native-linear-gradient';
 import Feather from 'react-native-vector-icons/Feather';
+import { authcontext } from '../Navigation/AuthenticationProvider';
 
 const LoginScreen = ({navigation}) => {
+  const {login} = useContext(authcontext);
+  const [email,setEmail]=useState();
+const[password,setPassword]=useState();
   const [data, setdata] = react.useState({
     email: '',
     password: '',
@@ -74,7 +79,7 @@ const updateSecureTextEntry=()=>{
             placeholder="Your Email.............................................."
             style={styles.TextInput}
             autoCapitalize="none"
-            onChangeText={(val)=>textInputChange(val)}
+            onChangeText={(val)=>{textInputChange(val); setEmail(val)}}
           />
           {data.check_textInputChange ? 
           <Animatable.View animation={"bounceIn"}>
@@ -90,7 +95,7 @@ const updateSecureTextEntry=()=>{
             style={styles.TextInput}
            secureTextEntry={data.secureTextEntry?true:false}
             autoCapitalize="None"
-            onChangeText={(val)=>PasswordChange(val)}
+            onChangeText={(val)=>{PasswordChange(val); setPassword(val)}}
           ></TextInput></View>
 
         </View>
@@ -102,17 +107,23 @@ const updateSecureTextEntry=()=>{
           name="eye-slash" color="#071629" size={30} style={styles.eyeslach}/></TouchableOpacity>
           </View>
           <View >
-            <TouchableOpacity onPress={()=>navigation.navigate('SignUpScreen')} style={styles.buttonStyle}>
+            <TouchableOpacity onPress={()=> login(email,password)} style={styles.buttonStyle}>
             <Text style={styles.textSign}>Sign In</Text>
             </TouchableOpacity>
             </View>
-
+            
             <View >
             <TouchableOpacity onPress={()=>navigation.navigate('SignUpScreen')} style={styles.button}>
             <Text style={styles.text}>Sign Up</Text>
             </TouchableOpacity>
             </View>
-      </View>
+            {/* <GoogleSigninButton
+    style={{ width: 192, height: 48 }}
+    size={GoogleSigninButton.Size.Wide}
+    color={GoogleSigninButton.Color.Dark}
+    onPress={this._signIn}
+    disabled={this.state.isSigninInProgress} /> */}
+                 </View>
    
     </View>
     //     <LinearGradient

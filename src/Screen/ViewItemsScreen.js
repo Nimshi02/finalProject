@@ -1,20 +1,17 @@
 import React from "react";
 import { View, Text, Button, StyleSheet } from 'react-native';
 
+import {Container,Card,Items,ItemImage} from '../Styles/ViewItemStyle';
 const ViewItemsScreen=({navigation}) =>{
     return (
-        <View style={styles.container}>
-            <Text>ViewItems</Text>
-        </View>
+        <Container>
+            <Card>
+                <Items>
+                    {/* <ItemImage/> */}
+                </Items> 
+            </Card>
+        </Container>
     )
 }
 export default ViewItemsScreen;
 
-const styles= StyleSheet.create(
-    {
-        container:{
-            flex:1,
-            alignItems: 'center',
-            justifyContent: 'center'
-        },
-    });

@@ -7,7 +7,8 @@ export const AuthenticationProvider=({children})=> {
     const [user,setuser]= useState(null);
     return(
         <authcontext.Provider
-        value={{user,setuser, login:async()=>{
+        value={{user,setuser, 
+            login:async(email,password)=>{
             try{
                 auth().signInWithEmailAndPassword(email,password);
             }

@@ -1,30 +1,19 @@
-import react, { useContext } from 'react';
+import react, {useContext} from 'react';
 import React, {useState, useEffect} from 'react';
 import * as Animatable from 'react-native-animatable';
-import {
-  View,
-  Text,
-  Button,
-  StyleSheet,
-  Image,
-  Dimensions,
-  TouchableOpacity,
-  TextInput,
-  Platform,
-} from 'react-native';
-import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import { View, Text, StyleSheet, Dimensions, TouchableOpacity, TextInput} from 'react-native';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
-import LinearGradient from 'react-native-linear-gradient';
 import Feather from 'react-native-vector-icons/Feather';
-import firestore from '@react-native-firebase/firestore';
-import {PrintDisabledTwoTone} from '@material-ui/icons';
-import { authcontext } from '../Navigation/AuthenticationProvider';
-
+import {authcontext} from '../Navigation/AuthenticationProvider';
+/*
+ *This is for the sign up.
+ */
 const SignUpScreen = ({navigation}) => {
-
-const {register} = useContext(authcontext);
-const [email,setEmail]=useState();
-const[password,setPassword]=useState();
+  const {register} = useContext(authcontext);
+  const [email, setEmail] = useState();
+  const [password, setPassword] = useState();
+  const [cPassword, setCPassword] = useState();
+  const[address,setAddress]=useState();
   const [data, setdata] = react.useState({
     Email: '',
     UserName: '',
@@ -38,20 +27,6 @@ const[password,setPassword]=useState();
     secureTextEntry2: true,
   });
 
-
-
-  const PasswordChange = val => {
-    setdata({
-      ...data,
-      Password: val,
-    });
-  };
-  const ConfirmPasswordChange = val => {
-    setdata({
-      ...data,
-      ConfirmPassword: val,
-    });
-  };
   const updateSecureTextEntry = () => {
     setdata({
       ...data,
@@ -109,6 +84,7 @@ const[password,setPassword]=useState();
       });
     }
   };
+
   return (
     <View style={styles.container}>
       <View style={styles.header}>
@@ -122,6 +98,8 @@ const[password,setPassword]=useState();
         }
         <Text style={styles.header_Text}> Sign Up!</Text>
       </View>
+
+      /* Email field */
       <View style={styles.footer}>
         <Text style={styles.footer_text}>Email</Text>
         <View style={styles.action}>
@@ -130,7 +108,10 @@ const[password,setPassword]=useState();
             placeholder="Your Email..........................................................."
             style={styles.TextInput}
             autoCapitalize="none"
-            onChangeText={val => {textInputChange(val); setEmail(val)}}
+            onChangeText={val => {
+              textInputChange(val);
+              setEmail(val);
+            }}
           />
           {data.check_textInputChange ? (
             <Animatable.View animation={'bounceIn'}>
@@ -139,6 +120,7 @@ const[password,setPassword]=useState();
           ) : null}
         </View>
 
+        /* UserName field */
         <Text style={[styles.footer_text, {marginTop: 10}]}>UserName</Text>
         <View style={styles.action}>
           <FontAwesome name="user-o" color="#05375a" size={30} />
@@ -155,6 +137,7 @@ const[password,setPassword]=useState();
           ) : null}
         </View>
 
+        /* Address field */
         <Text style={[styles.footer_text, {marginTop: 10}]}>Address</Text>
         <View style={styles.action}>
           <Feather name="map-pin" color="#05375a" size={30} />
@@ -162,7 +145,9 @@ const[password,setPassword]=useState();
             placeholder="Your Address......................................................."
             style={styles.TextInput}
             autoCapitalize="none"
-            onChangeText={val => textInputChange3(val)}
+            onChangeText={val => {
+              setAddress(val);
+            }}
           />
           {data.check_textInputChange3 ? (
             <Animatable.View animation={'bounceIn'}>
@@ -171,6 +156,7 @@ const[password,setPassword]=useState();
           ) : null}
         </View>
 
+        /* Password field */
         <Text style={[styles.footer_text, {marginTop: 10}]}>Password</Text>
         <View style={styles.action}>
           <Feather name="lock" color="#05375a" size={30} />
@@ -180,7 +166,10 @@ const[password,setPassword]=useState();
               style={styles.TextInput}
               secureTextEntry={data.secureTextEntry ? true : false}
               autoCapitalize="None"
-              onChangeText={val => {PasswordChange(val);setPassword(val)}}></TextInput>
+              onChangeText={val => {
+                PasswordChange(val);
+                setPassword(val);
+              }}></TextInput>
           </View>
         </View>
         <View>
@@ -193,6 +182,8 @@ const[password,setPassword]=useState();
             />
           </TouchableOpacity>
         </View>
+
+        /* Confirm password field */
         <Text style={[styles.footer_text, {marginTop: -20}]}>
           Confirm Password
         </Text>
@@ -204,7 +195,11 @@ const[password,setPassword]=useState();
               style={styles.TextInput}
               secureTextEntry={data.secureTextEntry2 ? true : false}
               autoCapitalize="None"
-              onChangeText={val => ConfirmPasswordChange(val)}></TextInput>
+              onChangeText={val => {
+                ConfirmPasswordChange(val);
+                setCPassword(val);
+              }}>
+              </TextInput>
           </View>
         </View>
         <View>
@@ -217,9 +212,12 @@ const[password,setPassword]=useState();
             />
           </TouchableOpacity>
         </View>
+
+        /* Sign up button */
         <View>
-          <TouchableOpacity style={styles.buttonStyle}
-          onPress={()=> register(email,password)}>
+          <TouchableOpacity
+            style={styles.buttonStyle}
+            onPress={() => register(email, password)}>
             <Text style={styles.textSign}>Sign Up</Text>
           </TouchableOpacity>
         </View>

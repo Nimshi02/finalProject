@@ -2,33 +2,36 @@ import react from "react";
 import {View, Text, StyleSheet,Image,TouchableOpacity } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
-
-import { withSafeAreaInsets } from "react-native-safe-area-context";
+import Onboarding from 'react-native-onboarding-swiper';
+import { Button } from "@material-ui/core";
 const OnboardingScreen =({navigation})=>{
-   return (
-    <LinearGradient
-   
-        colors={['#071629', '#ffffff']}
-        style={styles.container}
-        start={{ x: 1, y:0 }}
-        end={{ x: 6, y:2 }}
-      >
-           <Image source = {require('../Assets/Logo-White.png')} style = {{ width: 250, height: 250 }}/>
-           <TouchableOpacity
-        onPress={() => navigation.navigate('SelectionScreen') }
-        style={styles.button}
-      >
-        <Text style={styles.buttonText}>Get Start   
-        <MaterialIcons 
-        name="arrow-forward-ios"
-        color={'#071629'}
-        size={25}
-        />
-        </Text>
-       
 
-        </TouchableOpacity>
-      </LinearGradient>
+   return (
+    <Onboarding
+        onSkip={()=>navigation.replace("SelectionScreen")}
+        onDone={()=>navigation.navigate("SelectionScreen")}
+        pages={[
+          {
+            backgroundColor: '#d9b7a5',
+            image: <Image source={require('../Assets/onboarding-img1.png')} style={{width: 350, height: 200,}} />,
+            title: 'Manage Food',
+            subtitle: 'Manage food items in the home',
+          },
+          {
+            backgroundColor: '#a6e4d0',
+            image: <Image source={require('../Assets/onboarding-img2.png')} style={{width: 350, height: 200,}} />,
+            title: 'Share Food',
+            subtitle: 'Donate the food to every one',
+          },
+          {
+            backgroundColor: '#e9bcbe' ,
+            image: <Image source={require('../Assets/onboarding-img3.png')} style={{width: 250, height: 250,}} />,
+            title: 'Save Food',
+            subtitle: 'Use App to share food and be a hero',
+          },
+    ]}
+  />
+   
    )
 }
 
