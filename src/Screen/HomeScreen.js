@@ -7,14 +7,14 @@ const HomeScreen = ({navigation}) => {
       <Text style={styles.headerStyle}>Home</Text>
       <Image source={require('../Assets/Logo-Blue.png')}
             style={{width: 100, height: 100 }}/>
-      <TouchableOpacity style={styles.button} onPress={()=>navigation.navigate('View Available Items')}><Text style={styles.textStyle} >View Available Items</Text></TouchableOpacity>
+      <TouchableOpacity style={styles.button} onPress={()=>navigation.navigate('View Available Items')}><Text style={styles.textStyle} >Available Items</Text></TouchableOpacity>
       <TouchableOpacity style={styles.button}><Text style={styles.textStyle}>View Recpies</Text></TouchableOpacity>
-      <TouchableOpacity style={styles.button}><Text style={styles.textStyle}>Donate Items</Text></TouchableOpacity>
-      <TouchableOpacity style={styles.button}><Text style={styles.textStyle}>View Shopping List</Text></TouchableOpacity>
-      <TouchableOpacity style={styles.button}><Text style={styles.textStyle}>View Required Donations</Text></TouchableOpacity>
-      <TouchableOpacity style={styles.button}><Text style={styles.textStyle}>Donate Items</Text></TouchableOpacity>
-      <TouchableOpacity style={styles.button}><Text style={styles.textStyle}>View Restaurents Discounts</Text></TouchableOpacity>
-      <TouchableOpacity style={styles.button}><Text style={styles.textStyle}>Forum</Text></TouchableOpacity>
+      <TouchableOpacity style={styles.button}><Text style={styles.textStyle}>Community Items</Text></TouchableOpacity>
+      <TouchableOpacity style={styles.button}><Text style={styles.textStyle}>Shopping List</Text></TouchableOpacity>
+      {/* <TouchableOpacity style={styles.button}><Text style={styles.textStyle}>View Required Donations</Text></TouchableOpacity> */}
+      <TouchableOpacity style={styles.button} onPress={()=>navigation.navigate('Donate Screen')}><Text style={styles.textStyle}>Donations</Text></TouchableOpacity>
+      <TouchableOpacity style={styles.button}><Text style={styles.textStyle}>Restaurents Discounts</Text></TouchableOpacity>
+      <TouchableOpacity style={styles.button} onPress={()=>navigation.navigate('Forum')}><Text style={styles.textStyle}>Forum</Text></TouchableOpacity>
     </View>
   );
 };

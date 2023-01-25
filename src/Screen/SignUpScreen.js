@@ -99,7 +99,7 @@ const SignUpScreen = ({navigation}) => {
         <Text style={styles.header_Text}> Sign Up!</Text>
       </View>
 
-      /* Email field */
+     
       <View style={styles.footer}>
         <Text style={styles.footer_text}>Email</Text>
         <View style={styles.action}>
@@ -120,7 +120,7 @@ const SignUpScreen = ({navigation}) => {
           ) : null}
         </View>
 
-        /* UserName field */
+       
         <Text style={[styles.footer_text, {marginTop: 10}]}>UserName</Text>
         <View style={styles.action}>
           <FontAwesome name="user-o" color="#05375a" size={30} />
@@ -137,7 +137,7 @@ const SignUpScreen = ({navigation}) => {
           ) : null}
         </View>
 
-        /* Address field */
+      
         <Text style={[styles.footer_text, {marginTop: 10}]}>Address</Text>
         <View style={styles.action}>
           <Feather name="map-pin" color="#05375a" size={30} />
@@ -156,7 +156,7 @@ const SignUpScreen = ({navigation}) => {
           ) : null}
         </View>
 
-        /* Password field */
+      
         <Text style={[styles.footer_text, {marginTop: 10}]}>Password</Text>
         <View style={styles.action}>
           <Feather name="lock" color="#05375a" size={30} />
@@ -183,7 +183,6 @@ const SignUpScreen = ({navigation}) => {
           </TouchableOpacity>
         </View>
 
-        /* Confirm password field */
         <Text style={[styles.footer_text, {marginTop: -20}]}>
           Confirm Password
         </Text>
@@ -213,7 +212,6 @@ const SignUpScreen = ({navigation}) => {
           </TouchableOpacity>
         </View>
 
-        /* Sign up button */
         <View>
           <TouchableOpacity
             style={styles.buttonStyle}
