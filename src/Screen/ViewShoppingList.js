@@ -1,11 +1,11 @@
 import * as Animatable from 'react-native-animatable';
 import React from "react";
 import { View, Text, Button, StyleSheet, FlatList, TouchableOpacity } from 'react-native';
-import CommunityItem from '../Components/CommunityItemCard';
+import ShoppingItem from '../Components/ShoppingItem';
 import {Container,Card} from '../Styles/ShoppingListStyle';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 
-const CommunityItems=[
+const ShoppingItems=[
     {
         id:'1',
         ItemName:'Burger',
@@ -16,7 +16,7 @@ const CommunityItems=[
     },
     {
         id:'3',
-        ItemName:'Pasta',
+        ItemName:'Pastry',
 
     },
     {
@@ -24,30 +24,26 @@ const CommunityItems=[
         ItemName:'Pasta',
     },
 ] 
-const CommunityItemScreen=({navigation}) =>{
+const ViewShoppingList=({navigation}) =>{
  
 
     return (
        
         <Container>
-           <Card>
+         
         <FlatList
-        data={CommunityItems}
-        renderItem={({item}) => <CommunityItem item={item}/>} 
+        data={ShoppingItems}
+        renderItem={({item}) => <ShoppingItem item={item}/>} 
         keyExtractor={item=>item.id} 
         showsVerticalScrollIndicator={false}/>
-        <TouchableOpacity  style={styles.buttonStyle} onPress={() => navigation.navigate('Add Item To Community')}>
-            <View style={{top:10}} ><FontAwesome 
-              name="plus" color="#fff" size={30}/></View>
-           </TouchableOpacity> 
-           </Card>
+       
         </Container>
     
             
            
     )
 }
-export default CommunityItemScreen;
+export default ViewShoppingList;
 
 const styles = StyleSheet.create({
     buttonStyle: {

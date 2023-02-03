@@ -2,7 +2,7 @@ import * as Animatable from 'react-native-animatable';
 import React from "react";
 import { View, Text, Button, StyleSheet, FlatList, TouchableOpacity } from 'react-native';
 import ItemCard from '../Components/ItemCard';
-import {Container} from '../Styles/ForumStyle';
+import {Container} from '../Styles/DonationStyle';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 
 const Donations=[
@@ -82,7 +82,7 @@ const styles = StyleSheet.create({
         width: 60,
         height: 60,
         borderRadius: 30,
-        top: -60,
+        top: -20,
         left: 130,
         padding: 5,
         shadowColor: "#9f9393",

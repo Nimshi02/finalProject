@@ -1,7 +1,9 @@
 import styled from 'styled-components';
 
 export const Container= styled.View`
+
 flex:1;
+padding-top:30px;
 justify-content:center;
 background-color:#fff;
 align-items:center;

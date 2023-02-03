@@ -10,6 +10,7 @@ import ViewRecipes from '../Screen/ViewRecipes';
 import ViewRestaurentsItems from '../Screen/ViewRestaurentsItems';
 import ViewShoppingList from '../Screen/ViewShoppingList';
 import SignUpScreen from '../Screen/SignUpScreen';
+import BeginScreen from '../Screen/BeginScren';
 
 const Stack = createNativeStackNavigator();
 const AuthStack = () => {
@@ -35,6 +36,11 @@ const AuthStack = () => {
         <Stack.Screen
           name="OnboardingScreen"
           component={OnboardingScreen}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name="BeginScreen"
+          component={BeginScreen}
           options={{headerShown: false}}
         />
        <Stack.Screen

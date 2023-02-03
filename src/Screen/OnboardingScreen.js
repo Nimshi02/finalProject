@@ -8,8 +8,8 @@ const OnboardingScreen =({navigation})=>{
 
    return (
     <Onboarding
-        onSkip={()=>navigation.replace("SelectionScreen")}
-        onDone={()=>navigation.navigate("SelectionScreen")}
+        onSkip={()=>navigation.replace("BeginScreen")}
+        onDone={()=>navigation.navigate("BeginScreen")}
         pages={[
           {
             backgroundColor: '#d9b7a5',

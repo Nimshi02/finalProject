@@ -10,11 +10,13 @@ const HomeScreen = ({navigation}) => {
       <TouchableOpacity style={styles.button} onPress={()=>navigation.navigate('View Available Items')}><Text style={styles.textStyle} >Available Items</Text></TouchableOpacity>
       <TouchableOpacity style={styles.button}><Text style={styles.textStyle}>View Recpies</Text></TouchableOpacity>
       <TouchableOpacity style={styles.button} onPress={()=>navigation.navigate('Community Items')}><Text style={styles.textStyle} >Community Items</Text></TouchableOpacity>
-      <TouchableOpacity style={styles.button}><Text style={styles.textStyle}>Shopping List</Text></TouchableOpacity>
+      <TouchableOpacity style={styles.button} onPress={()=>navigation.navigate('Shopping list')}><Text style={styles.textStyle} >Shopping List</Text></TouchableOpacity>
       {/* <TouchableOpacity style={styles.button}><Text style={styles.textStyle}>View Required Donations</Text></TouchableOpacity> */}
       <TouchableOpacity style={styles.button} onPress={()=>navigation.navigate('Donate Screen')}><Text style={styles.textStyle}>Donations</Text></TouchableOpacity>
       <TouchableOpacity style={styles.button}><Text style={styles.textStyle}>Restaurents Discounts</Text></TouchableOpacity>
       <TouchableOpacity style={styles.button} onPress={()=>navigation.navigate('Forum')}><Text style={styles.textStyle}>Forum</Text></TouchableOpacity>
+
+      
     </View>
   );
 };
