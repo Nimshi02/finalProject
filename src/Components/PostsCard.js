@@ -6,14 +6,14 @@ const PostCard=({item})=>{
     return(
         <Card>
         <User>
-            <UserImage source={item.UserImage}/> 
+            <UserImage source={{uri:item.userImage}}/> 
             <UserInfoText>
-            <UserName>{item.UserName}</UserName>
-            <PostDate>{item.PostDate}</PostDate>
+            <UserName>{item.userName}</UserName>
+            <PostDate>{item.postTime.toString()}</PostDate>
               </UserInfoText>                    
         </User> 
-        <PostText>{item.PostText}</PostText>
-        {item.PostImage != 'none' ? <PostImage source={item.PostImage} /> : null}
+        <PostText>{item.postText}</PostText>
+        {item.PostImage != 'null' ? <PostImage source={{uri:item.postImage}} /> : null}
     </Card> 
     );
 }
