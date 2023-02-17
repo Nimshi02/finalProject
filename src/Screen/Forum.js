@@ -7,7 +7,10 @@ import {
   FlatList,
   SafeAreaView,
   Alert,
+  TouchableOpacity
 } from 'react-native';
+
+import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import SkeletonPlaceholder from 'react-native-skeleton-placeholder';
 
 import Ionicons from 'react-native-vector-icons/Ionicons';
@@ -252,6 +255,10 @@ const Forum = ({navigation}) => {
             ListFooterComponent={ListHeader}
             showsVerticalScrollIndicator={false}
           />
+          <TouchableOpacity  style={styles.buttonStyle} onPress={() => navigation.navigate('AddPostScreen')}>
+            <View style={{top:10}} ><FontAwesome 
+              name="plus" color="#fff" size={30}/></View>
+           </TouchableOpacity> 
         </Container>
       )}
     </SafeAreaView>
@@ -259,3 +266,24 @@ const Forum = ({navigation}) => {
 };
 
 export default Forum;
+
+const styles = StyleSheet.create({
+  buttonStyle: {
+      alignItems: 'center',
+      backgroundColor: '#d0c6c6',
+      width: 60,
+      height: 60,
+      borderRadius: 30,
+      top: -60,
+      left: 130,
+      padding: 5,
+      shadowColor: "#9f9393",
+  shadowOffset: {
+    width: 0,
+    height: 0,
+  },
+  shadowOpacity: 0.5,
+  shadowRadius: 10,
+  elevation: 8,
+    },
+});
