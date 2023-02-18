@@ -22,46 +22,7 @@ import firestore from '@react-native-firebase/firestore';
 
 import {Container} from '../Styles/ForumStyle';
 
-const Posts = [
-  
-  {
-    id: '2',
-    userName: 'John Doe',
-    userImg: require('../Assets/user.png'),
-    postTime: '2 hours ago',
-    post:
-      'Hey there, this is my test for a post of my social app in React Native.',
-    postImg: 'none',
-  },
-  {
-    id: '3',
-    userName: 'Ken William',
-    userImg: require('../Assets/user.png'),
-    postTime: '1 hours ago',
-    post:
-      'Hey there, this is my test for a post of my social app in React Native.',
-    postImg: require('../Assets/testImage.jpg'),
-  },
-  {
-    id: '4',
-    userName: 'Selina Paul',
-    userImg: require('../Assets/user.png'),
-    postTime: '1 day ago',
-    post:
-      'Hey there, this is my test for a post of my social app in React Native.',
-    postImg: require('../Assets/testImage.jpg'),
 
-  },
-  {
-    id: '5',
-    userName: 'Christy Alex',
-    userImg: require('../Assets/user.png'),
-    postTime: '2 days ago',
-    post:
-      'Hey there, this is my test for a post of my social app in React Native.',
-    postImg: 'none',
-  },
-];
 
 const Forum = ({navigation}) => {
   const [posts, setPosts] = useState(null);

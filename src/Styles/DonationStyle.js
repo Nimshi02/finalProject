@@ -76,4 +76,11 @@ padding-left:10px;
 padding-right:10px;
 font-family:'Lato-Regular';
 `;
+export const AddImage = styled.Image`
+    width: 120px;
+    height: 120px;
+    top:-5px;
+    margin-bottom: 15px;
+    border-radius:60px;
+`;
 

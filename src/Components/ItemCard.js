@@ -8,10 +8,10 @@ const ItemCard=({item})=>{
             {item.Type != 'Ingredient' ?  <HeadingWrapper><ItemHeading style={{textAlign:"center"}}>{item.Type}</ItemHeading></HeadingWrapper> : <HeadingWrapper2><ItemHeading style={{textAlign:"center"}}>{item.Type}</ItemHeading></HeadingWrapper2>}
            
         <Item>
-            <ItemImage source={item.ItemImage}/>                 
+            <ItemImage source={{uri:item.ItemImage}}/>                 
         </Item> 
         <ItemName>{item.ItemName}</ItemName                >
-            <PostDate>{item.PostDate}</PostDate> 
+            <PostDate>{item.PostDate.toString()}</PostDate> 
             <Qty>{item.Qty}</Qty>  
     </Card> 
     );

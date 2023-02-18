@@ -1,5 +1,5 @@
 import * as Animatable from 'react-native-animatable';
-import React,{useState} from 'react';
+import React, {useState,useEffect} from 'react';
 import {
   View,
   Text,
@@ -11,59 +11,75 @@ import {
   TouchableWithoutFeedback,
 } from 'react-native';
 import ItemCard from '../Components/ItemCard';
-import {Container} from '../Styles/DonationStyle';
+import {Container, AddImage} from '../Styles/DonationStyle';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
-import { TextInput } from 'react-native-gesture-handler';
+import {TextInput} from 'react-native-gesture-handler';
 import ImagePicker from 'react-native-image-crop-picker';
 
-const Donations = [
-  {
-    id: '1',
-    ItemName: 'Burger',
-    Type: 'Meal',
-    UserImage: require('../Assets/user.png'),
-    ItemImage: require('../Assets/testFoodItem.jpg'),
-    PostDate: '4 mins ago',
-    Expiredate: '20/11/2023',
-    Qty: '100 grams',
-    owner: 'Mr.Ajith',
-    owners_number: '0777734734',
-  },
-  {
-    id: '2',
-    ItemName: 'Cream Cheese',
-    Type: 'Ingredient',
-    UserImage: require('../Assets/user.png'),
-    PostDate: '4 mins ago',
-    Expiredate: '20/11/2023',
-    Qty: '100 grams',
-    owner: 'Mr.Ajith',
-    owners_number: '0777734734',
-  },
-  {
-    id: '3',
-    ItemName: 'Pasta',
-    Type: 'Meal',
-    ItemImage: require('../Assets/user.png'),
-    PostDate: '4 mins ago',
-    Expiredate: '20/11/2023',
-    Qty: '100 grams',
-    owner: 'Mr.Ajith',
-    owners_number: '0777734734',
-  },
-  {
-    id: '4',
-    ItemName: 'Pasta',
-    UserImage: require('../Assets/user.png'),
-    PostDate: '4 mins ago',
-    Expiredate: '20/11/2023',
-    Qty: '100 grams',
-    owner: 'Mr.Ajith',
-    owners_number: '0777734734',
-  },
-];
+import storage from '@react-native-firebase/storage';
+import firestore from '@react-native-firebase/firestore';
+
+// const Donations = [
+//   {
+//     id: '1',
+//     ItemName: 'Burger',
+//     Type: 'Meal',
+//     UserImage: require('../Assets/user.png'),
+//     ItemImage: require('../Assets/testFoodItem.jpg'),
+//     PostDate: '4 mins ago',
+//     Expiredate: '20/11/2023',
+//     Qty: '100 grams',
+//     owner: 'Mr.Ajith',
+//     owners_number: '0777734734',
+//   },
+//   {
+//     id: '2',
+//     ItemName: 'Cream Cheese',
+//     Type: 'Ingredient',
+//     UserImage: require('../Assets/user.png'),
+//     PostDate: '4 mins ago',
+//     Expiredate: '20/11/2023',
+//     Qty: '100 grams',
+//     owner: 'Mr.Ajith',
+//     owners_number: '0777734734',
+//   },
+//   {
+//     id: '3',
+//     ItemName: 'Pasta',
+//     Type: 'Meal',
+//     ItemImage: require('../Assets/user.png'),
+//     PostDate: '4 mins ago',
+//     Expiredate: '20/11/2023',
+//     Qty: '100 grams',
+//     owner: 'Mr.Ajith',
+//     owners_number: '0777734734',
+//   },
+//   {
+//     id: '4',
+//     ItemName: 'Pasta',
+//     ItemImage: require('../Assets/user.png'),
+//     PostDate: '4 mins ago',
+//     Expiredate: '20/11/2023',
+//     Qty: '100 grams',
+//     owner: 'Mr.Ajith',
+//     owners_number: '0777734734',
+//   },
+// ];
 const DonateScreen = ({navigation}) => {
-  const [visibility,setVisible]= useState(false);
+  const [visibility, setVisible] = useState(false);
+  const [ItemName, setItemName] = useState(null);
+  const [image, setImage] = useState(null);
+  const [Type, setType] = useState(null);
+  const [Expiredate, setExpireDate] = useState(null);
+  const [Qty, setQty] = useState(null);
+  const [owner, setOwner] = useState(null);
+  const [uploading, setUploading] = useState(false);
+  const [owners_number, setOwners_number] = useState(null);
+  const [transferred, setTransferred] = useState(0);
+  const [Donations, setPosts] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [deleted, setDeleted] = useState(false);
+  const {user,logout}=useContext(authcontext);
   const takePhotoFromCamera = () => {
     ImagePicker.openCamera({
       width: 1200,
@@ -75,6 +91,141 @@ const DonateScreen = ({navigation}) => {
       setImage(imageUri);
     });
   };
+
+  const addDonation = async () => {
+    alert('Pressed this');
+    const imageUrl = await uploadImage();
+    console.log('Image Url: ', imageUrl);
+    firestore()
+      .collection('donations')
+      .add({
+        userId: user.uid,
+        ItemName: ItemName,
+        Type: Type,
+        ItemImage: imageUrl,
+        PostDate: firestore.Timestamp.fromDate(new Date()),
+        Expiredate: Expiredate,
+        Qty: Qty,
+        owner: owner,
+        contactDetails: owners_number,
+      })
+      .then(() => {
+        console.log('Post Added!');
+        alert('Post published!', 'Your post has been published Successfully!');
+      })
+      .catch(error => {
+        console.log(
+          'Something went wrong with added post to firestore.',
+          error,
+        );
+      });
+    setVisible(false);
+  };
+
+  const uploadImage = async () => {
+    alert(image);
+    if (image == null) {
+      return null;
+    }
+    const uploadUri = image;
+    let filename = uploadUri.substring(uploadUri.lastIndexOf('/') + 1);
+
+    // Add timestamp to File Name
+    const extension = filename.split('.').pop();
+    const name = filename.split('.').slice(0, -1).join('.');
+    filename = name + Date.now() + '.' + extension;
+
+    setUploading(true);
+    setTransferred(0);
+
+    const storageRef = storage().ref(`photos/${filename}`);
+    const task = storageRef.putFile(uploadUri);
+
+    // Set transferred state
+    task.on('state_changed', taskSnapshot => {
+      console.log(
+        `${taskSnapshot.bytesTransferred} transferred out of ${taskSnapshot.totalBytes}`,
+      );
+
+      setTransferred(
+        Math.round(taskSnapshot.bytesTransferred / taskSnapshot.totalBytes) *
+          100,
+      );
+    });
+
+    try {
+      await task;
+
+      const url = await storageRef.getDownloadURL();
+
+      setUploading(false);
+      setImage(null);
+
+      // Alert.alert(
+      //   'Image uploaded!',
+      //   'Your image has been uploaded to the Firebase Cloud Storage Successfully!',
+      // );
+      console.log('Inside the function that gives an error');
+      console.log(url);
+      return url;
+    } catch (e) {
+      console.log(e);
+      return null;
+    }
+  };
+  const fetchPosts = async () => {
+    try {
+      const list = [];
+
+      await firestore()
+        .collection('donations')
+        .orderBy('PostDate', 'desc')
+        .get()
+        .then(querySnapshot => {
+          console.log('Total Posts: ', querySnapshot.size);
+
+          querySnapshot.forEach(doc => {
+            const {
+              userId,
+              ItemName,
+              Type,
+              ItemImage,
+              PostDate,
+              Expiredate,
+              Qty,
+              owner,
+              contactDetails,
+            } = doc.data();
+            list.push({
+              id: doc.id,
+              userId,
+              ItemName,
+              Type,
+              ItemImage,
+              PostDate,
+              Expiredate,
+              Qty,
+              owner,
+              owners_number: contactDetails,
+            });
+          });
+        });
+
+      setPosts(list);
+
+      if (loading) {
+        setLoading(false);
+      }
+
+      console.log('Posts: ', posts);
+    } catch (e) {
+      console.log(e);
+    }
+  };
+  useEffect(() => {
+    fetchPosts();
+  }, []);
+
   return (
     <Container>
       <FlatList
@@ -83,11 +234,14 @@ const DonateScreen = ({navigation}) => {
         keyExtractor={item => item.id}
         showsVerticalScrollIndicator={false}
       />
-    
-      <TouchableOpacity  style={styles.addBtnStyle} onPress={() =>setVisible(true)}>
-            <View style={{top:10}} ><FontAwesome
-              name="plus" color="#fff" size={30}/></View>
-           </TouchableOpacity> 
+
+      <TouchableOpacity
+        style={styles.addBtnStyle}
+        onPress={() => setVisible(true)}>
+        <View style={{top: 10}}>
+          <FontAwesome name="plus" color="#fff" size={30} />
+        </View>
+      </TouchableOpacity>
 
       {/* PopUp is starting from here */}
       <Modal transparent={false} visible={visibility}>
@@ -104,17 +258,50 @@ const DonateScreen = ({navigation}) => {
               Add Donations
             </Text>
             <View style={styles.pictureStyle}>
-             <TouchableWithoutFeedback ><View style={{top:27}}><FontAwesome name="cutlery" color="#05375a" size={60} /></View>
-</TouchableWithoutFeedback> 
+              {image != null ? (
+                <AddImage source={{uri: image}} />
+              ) : (
+                <TouchableWithoutFeedback>
+                  <View style={{top: 27}}>
+                    <FontAwesome name="cutlery" color="#05375a" size={60} />
+                  </View>
+                </TouchableWithoutFeedback>
+              )}
             </View>
-            <TouchableOpacity style={styles.buttonStyle} onPress={takePhotoFromCamera}><View style={{top:3}}><FontAwesome 
-              name="plus" color="#fff" size={20}/></View></TouchableOpacity>
-              <View style={{top:70}}><TextInput placeholder='Product Name'></TextInput>
-              <TextInput placeholder='Quantity'></TextInput>
-              <TextInput placeholder='Expire Dates'></TextInput>
-              <TextInput placeholder='Users Contact Details'></TextInput>
-              <TextInput placeholder='Pickup Location'></TextInput></View>
-              <TouchableOpacity style={styles.submitStyle}><Text style={{color:"#fff", alignSelf:"center"}}>Add Donation</Text></TouchableOpacity>
+            {image != null ? null : (
+              <TouchableOpacity
+                style={styles.buttonStyle}
+                onPress={takePhotoFromCamera}>
+                <View style={{top: 3}}>
+                  <FontAwesome name="plus" color="#fff" size={20} />
+                </View>
+              </TouchableOpacity>
+            )}
+
+            <View style={{top: 70}}>
+              <TextInput
+                placeholder="Product Name"
+                onChangeText={setItemName}></TextInput>
+              <TextInput placeholder="Type" onChangeText={setType}></TextInput>
+              <TextInput
+                placeholder="Quantity"
+                onChangeText={setQty}></TextInput>
+              <TextInput
+                placeholder="Expire Dates"
+                onChangeText={setExpireDate}></TextInput>
+              <TextInput
+                placeholder="Donor Name"
+                onChangeText={setOwner}></TextInput>
+              <TextInput
+                placeholder="Users Contact Details"
+                onChangeText={setOwners_number}></TextInput>
+            </View>
+            <TouchableOpacity style={styles.submitStyle} onPress={addDonation}>
+              <Text style={{color: '#fff', alignSelf: 'center'}}>
+                Add Donation
+              </Text>
+            </TouchableOpacity>
+           
           </View>
         </View>
       </Modal>
@@ -133,14 +320,14 @@ const styles = StyleSheet.create({
     top: 35,
     left: 140,
     padding: 5,
-    shadowColor: "#9f9393",
-shadowOffset: {
-  width: 0,
-  height: 0,
-},
-shadowOpacity: 0.5,
-shadowRadius: 10,
-elevation: 8,
+    shadowColor: '#9f9393',
+    shadowOffset: {
+      width: 0,
+      height: 0,
+    },
+    shadowOpacity: 0.5,
+    shadowRadius: 10,
+    elevation: 8,
   },
   pictureStyle: {
     borderRadius: 100,
@@ -158,36 +345,38 @@ elevation: 8,
     backgroundColor: '#d4d4d3',
     width: 120,
     height: 120,
-    top:80,
-    left:50
+    top: 80,
+    left: 50,
   },
-  submitStyle:{
-    backgroundColor: "#05375a",
-    top:100,
+  submitStyle: {
+    backgroundColor: '#05375a',
+    top: 90,
     borderRadius: 15,
     paddingVertical: 10,
-    paddingHorizontal: 25
-    },
-    buttonText:{
-      fontSize: 20,
-    color: "#fff",
-    },
-    addBtnStyle: {
-      alignItems: 'center',
-      backgroundColor: '#d0c6c6',
-      width: 60,
-      height: 60,
-      borderRadius: 30,
-      top: -60,
-      left: 130,
-      padding: 5,
-      shadowColor: "#9f9393",
-  shadowOffset: {
-    width: 0,
-    height: 0,
+    paddingHorizontal: 20,
+   
   },
-  shadowOpacity: 0.5,
-  shadowRadius: 10,
-  elevation: 8,
+ 
+  buttonText: {
+    fontSize: 20,
+    color: '#fff',
+  },
+  addBtnStyle: {
+    alignItems: 'center',
+    backgroundColor: '#d0c6c6',
+    width: 60,
+    height: 60,
+    borderRadius: 30,
+    top: -60,
+    left: 130,
+    padding: 5,
+    shadowColor: '#9f9393',
+    shadowOffset: {
+      width: 0,
+      height: 0,
     },
+    shadowOpacity: 0.5,
+    shadowRadius: 10,
+    elevation: 8,
+  },
 });

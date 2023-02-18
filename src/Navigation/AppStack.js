@@ -10,7 +10,6 @@ import ViewItemsScreen from '../Screen/ViewItemsScreen';
 import Forum from '../Screen/Forum';
 import AddPostScreen from '../Screen/AddPostScreen';
 import DonateScreen from '../Screen/DonateScreen';
-import AddDonationScreen from '../Screen/AddDonationScreen';
 import ViewCommunityItems from '../Screen/ViewCommunityItems';
 import AddCommunityItem from '../Screen/AddCommunityItem';
 import ViewShoppingList from '../Screen/ViewShoppingList';
@@ -43,21 +42,6 @@ const FeedStack = ({navigation}) => (
     <Stack.Screen name="Donate Screen" component={DonateScreen} options={{
       headerTintColor: '#fff',
         headerTitle: 'Donations',
-        headerTitleAlign: 'center',
-        headerTitleStyle: {
-          color: '#fff',
-          fontSize: 30,
-        },
-        headerStyle: {
-          backgroundColor: '#071629',
-          shadowColor: '#fff',
-
-          elevation: 0,
-        },
-      }}/>
-    <Stack.Screen name="Add Donation Screen" component={AddDonationScreen} options={{
-      headerTintColor: '#fff',
-        headerTitle: 'Add Donation',
         headerTitleAlign: 'center',
         headerTitleStyle: {
           color: '#fff',
@@ -123,6 +107,7 @@ const ForumStack = ({navigation}) => (
     <Stack.Screen name="AddPostScreen" component={AddPostScreen} 
      options={{headerTitle: 'Add Post'}}
     />
+    
   </Stack.Navigator>
 );
 
