@@ -76,8 +76,8 @@ import {
   TouchableWithoutFeedback,
   Animated,
 } from 'react-native';
-import Icon from 'react-native-vector-icons/Ionicons';
 import ImagePicker from 'react-native-image-crop-picker';
+
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 
 import storage from '@react-native-firebase/storage';

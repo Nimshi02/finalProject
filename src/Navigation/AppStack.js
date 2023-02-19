@@ -69,21 +69,6 @@ const FeedStack = ({navigation}) => (
           elevation: 0,
         },
       }}/>
-    <Stack.Screen name="Add Item To Community" component={AddCommunityItem} options={{
-      headerTintColor: '#fff',
-        headerTitle: 'Add Community Item',
-        headerTitleAlign: 'center',
-        headerTitleStyle: {
-          color: '#fff',
-          fontSize: 30,
-        },
-        headerStyle: {
-          backgroundColor: '#071629',
-          shadowColor: '#fff',
-
-          elevation: 0,
-        },
-      }}/>
   </Stack.Navigator>
 );
 

@@ -1,5 +1,5 @@
 import * as Animatable from 'react-native-animatable';
-import React, {useState,useEffect} from 'react';
+import React, {useState,useEffect,useContext} from 'react';
 import {
   View,
   Text,
@@ -9,13 +9,14 @@ import {
   TouchableOpacity,
   Modal,
   TouchableWithoutFeedback,
+  Alert
 } from 'react-native';
 import ItemCard from '../Components/ItemCard';
 import {Container, AddImage} from '../Styles/DonationStyle';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import {TextInput} from 'react-native-gesture-handler';
 import ImagePicker from 'react-native-image-crop-picker';
-
+import { authcontext } from '../Navigation/AuthenticationProvider';
 import storage from '@react-native-firebase/storage';
 import firestore from '@react-native-firebase/firestore';
 
@@ -79,7 +80,9 @@ const DonateScreen = ({navigation}) => {
   const [Donations, setPosts] = useState(null);
   const [loading, setLoading] = useState(true);
   const [deleted, setDeleted] = useState(false);
-  const {user,logout}=useContext(authcontext);
+  const[Location,setLocation]=useState(null);
+
+   const {user,logout}=useContext(authcontext);
   const takePhotoFromCamera = () => {
     ImagePicker.openCamera({
       width: 1200,
@@ -108,6 +111,7 @@ const DonateScreen = ({navigation}) => {
         Qty: Qty,
         owner: owner,
         contactDetails: owners_number,
+        Location:Location,
       })
       .then(() => {
         console.log('Post Added!');
@@ -195,6 +199,7 @@ const DonateScreen = ({navigation}) => {
               Qty,
               owner,
               contactDetails,
+              Location
             } = doc.data();
             list.push({
               id: doc.id,
@@ -217,21 +222,104 @@ const DonateScreen = ({navigation}) => {
         setLoading(false);
       }
 
-      console.log('Posts: ', posts);
-    } catch (e) {
+    console.log('Posts: ', posts);
+    } 
+    catch (e) {
       console.log(e);
     }
   };
+      useEffect(() => {
+        fetchPosts();
+        setDeleted(false);
+      }, [deleted]);
+    
+
+  const handleDelete = (postId) => {
+    Alert.alert(
+      'Delete post',
+      'Are you sure?',
+      [
+        {
+          text: 'Cancel',
+          onPress: () => console.log('Cancel Pressed!'),
+          style: 'cancel',
+        },
+        {
+          text: 'Confirm',
+          onPress: () => deletePost(postId),
+        },
+      ],
+      {cancelable: false},
+    );
+  };
+
+  const deletePost = (postId) => {
+    console.log('Current Post Id: ', postId);
+
+    firestore()
+      .collection('donations')
+      .doc(postId)
+      .get()
+      .then((documentSnapshot) => {
+        if (documentSnapshot.exists) {
+          const {postImg} = documentSnapshot.data();
+
+          if (postImg != null) {
+            const storageRef = storage().refFromURL(postImg);
+            const imageRef = storage().ref(storageRef.fullPath);
+
+            imageRef
+              .delete()
+              .then(() => {
+                console.log(`${postImg} has been deleted successfully.`);
+                deleteFirestoreData(postId);
+              })
+              .catch((e) => {
+                console.log('Error while deleting the image. ', e);
+              });
+            // If the post image is not available
+          } else {
+            deleteFirestoreData(postId);
+          }
+        }
+      });
+  };
+
+  const deleteFirestoreData = (postId) => {
+    firestore()
+      .collection('donations')
+      .doc(postId)
+      .delete()
+      .then(() => {
+        Alert.alert(
+          'Post deleted!',
+          'Your post has been deleted successfully!',
+        );
+        setDeleted(true);
+      })
+      .catch((e) => console.log('Error deleting posst.', e));
+  };
+    
   useEffect(() => {
     fetchPosts();
   }, []);
+
 
   return (
     <Container>
       <FlatList
         data={Donations}
-        renderItem={({item}) => <ItemCard item={item} />}
+        renderItem={({item}) => ( <ItemCard
+          item={item}
+          onDelete={handleDelete}
+          onClick={deletePost}
+          onPress={() =>
+            navigation.navigate('Home Screen', {userId: item.userId})
+          }
+        />
+      )}
         keyExtractor={item => item.id}
+        
         showsVerticalScrollIndicator={false}
       />
 
@@ -295,6 +383,9 @@ const DonateScreen = ({navigation}) => {
               <TextInput
                 placeholder="Users Contact Details"
                 onChangeText={setOwners_number}></TextInput>
+                <TextInput
+                placeholder="Location"
+                onChangeText={setLocation}></TextInput>
             </View>
             <TouchableOpacity style={styles.submitStyle} onPress={addDonation}>
               <Text style={{color: '#fff', alignSelf: 'center'}}>

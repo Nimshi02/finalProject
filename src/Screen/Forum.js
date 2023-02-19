@@ -207,7 +207,7 @@ const Forum = ({navigation}) => {
                 item={item}
                 onDelete={handleDelete}
                 onPress={() =>
-                  navigation.navigate('HomeProfile', {userId: item.userId})
+                  navigation.navigate('Home Screen', {userId: item.userId})
                 }
               />
             )}
