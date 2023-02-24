@@ -21,8 +21,8 @@ justify-content:flex-start;
 export const ItemImage=styled.Image`
 width:50px;
 height:50px;
-left:30px;
-boarrder-redius:25px;
+left:20px;
+border-radius:30px
 `;
 
 export const ItemInfoText=styled.View`

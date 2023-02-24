@@ -4,7 +4,7 @@ import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import {View } from 'react-native';
 import CheckBox from '@react-native-community/checkbox';
 
-const ShoppingItem=({item})=>{
+const ShoppingItem=({item,onDelete,onClick})=>{
     const [isSelected, setSelection] = useState(false);
     return(
         <View>
@@ -18,7 +18,8 @@ const ShoppingItem=({item})=>{
                 {/* <Devider/>  */}
         </Box>
         <TrashStyle><FontAwesome 
-        name="trash" color="#000" size={30} /></TrashStyle>
+        name="trash" color="#000" size={30} onPress={()=> onDelete(item.id)}/></TrashStyle>
+        {isSelected?onClick(item.id):null}
         </View>
 
     );

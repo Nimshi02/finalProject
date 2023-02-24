@@ -11,8 +11,9 @@ import Forum from '../Screen/Forum';
 import AddPostScreen from '../Screen/AddPostScreen';
 import DonateScreen from '../Screen/DonateScreen';
 import ViewCommunityItems from '../Screen/ViewCommunityItems';
-import AddCommunityItem from '../Screen/AddCommunityItem';
 import ViewShoppingList from '../Screen/ViewShoppingList';
+import profile from '../Screen/profile';
+import UpdateUserProfile from '../Screen/UpdateUserProfile';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -119,6 +120,47 @@ const CartStack = ({navigation}) => (
   </Stack.Navigator>
 );
 
+const ProfileStack = ({navigation}) => (
+  <Stack.Navigator>
+    <Stack.Screen
+      name="Profile"
+      component={profile}
+      options={{
+        headerTitle: 'Profile',
+        headerTitleAlign: 'center',
+        headerTitleStyle: {
+          color: '#fff',
+          fontSize: 30,
+        },
+        headerStyle: {
+          backgroundColor: '#071629',
+          shadowColor: '#fff',
+
+          elevation: 0,
+        },
+      }}
+    />
+    <Stack.Screen
+      name="UpdateUserProfile"
+      component={UpdateUserProfile}
+      options={{
+        headerTitle: 'Update Profile',
+        headerTitleAlign: 'center',
+        headerTitleStyle: {
+          color: '#fff',
+          fontSize: 30,
+        },
+        headerStyle: {
+          backgroundColor: '#071629',
+          shadowColor: '#fff',
+
+          elevation: 0,
+        },
+      }}
+    />
+  </Stack.Navigator>
+);
+
 const AppStack = () => {
   return (
     <Tab.Navigator
@@ -165,7 +207,19 @@ const AppStack = () => {
           ),
         }}
       />
+      <Tab.Screen
+        name="Profile"
+        component={ProfileStack}
+        options={{
+          headerShown: false,
+          tabBarIcon: ({color, size}) => (
+            <Feather name="user" color={color} size={size} />
+          ),
+        }}
+      />
     </Tab.Navigator>
+    
+    
   );
 };
 

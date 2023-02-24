@@ -1,5 +1,5 @@
 import * as Animatable from 'react-native-animatable';
-import React, {useState,useEffect,useContext} from 'react';
+import React, {useState, useEffect, useContext} from 'react';
 import {
   View,
   Text,
@@ -9,63 +9,17 @@ import {
   TouchableOpacity,
   Modal,
   TouchableWithoutFeedback,
-  Alert
+  Alert,
 } from 'react-native';
 import ItemCard from '../Components/ItemCard';
 import {Container, AddImage} from '../Styles/DonationStyle';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import {TextInput} from 'react-native-gesture-handler';
 import ImagePicker from 'react-native-image-crop-picker';
-import { authcontext } from '../Navigation/AuthenticationProvider';
+import {authcontext} from '../Navigation/AuthenticationProvider';
 import storage from '@react-native-firebase/storage';
 import firestore from '@react-native-firebase/firestore';
 
-// const Donations = [
-//   {
-//     id: '1',
-//     ItemName: 'Burger',
-//     Type: 'Meal',
-//     UserImage: require('../Assets/user.png'),
-//     ItemImage: require('../Assets/testFoodItem.jpg'),
-//     PostDate: '4 mins ago',
-//     Expiredate: '20/11/2023',
-//     Qty: '100 grams',
-//     owner: 'Mr.Ajith',
-//     owners_number: '0777734734',
-//   },
-//   {
-//     id: '2',
-//     ItemName: 'Cream Cheese',
-//     Type: 'Ingredient',
-//     UserImage: require('../Assets/user.png'),
-//     PostDate: '4 mins ago',
-//     Expiredate: '20/11/2023',
-//     Qty: '100 grams',
-//     owner: 'Mr.Ajith',
-//     owners_number: '0777734734',
-//   },
-//   {
-//     id: '3',
-//     ItemName: 'Pasta',
-//     Type: 'Meal',
-//     ItemImage: require('../Assets/user.png'),
-//     PostDate: '4 mins ago',
-//     Expiredate: '20/11/2023',
-//     Qty: '100 grams',
-//     owner: 'Mr.Ajith',
-//     owners_number: '0777734734',
-//   },
-//   {
-//     id: '4',
-//     ItemName: 'Pasta',
-//     ItemImage: require('../Assets/user.png'),
-//     PostDate: '4 mins ago',
-//     Expiredate: '20/11/2023',
-//     Qty: '100 grams',
-//     owner: 'Mr.Ajith',
-//     owners_number: '0777734734',
-//   },
-// ];
 const DonateScreen = ({navigation}) => {
   const [visibility, setVisible] = useState(false);
   const [ItemName, setItemName] = useState(null);
@@ -80,9 +34,9 @@ const DonateScreen = ({navigation}) => {
   const [Donations, setPosts] = useState(null);
   const [loading, setLoading] = useState(true);
   const [deleted, setDeleted] = useState(false);
-  const[Location,setLocation]=useState(null);
+  const [Location, setLocation] = useState(null);
 
-   const {user,logout}=useContext(authcontext);
+  const {user, logout} = useContext(authcontext);
   const takePhotoFromCamera = () => {
     ImagePicker.openCamera({
       width: 1200,
@@ -111,7 +65,7 @@ const DonateScreen = ({navigation}) => {
         Qty: Qty,
         owner: owner,
         contactDetails: owners_number,
-        Location:Location,
+        Location: Location,
       })
       .then(() => {
         console.log('Post Added!');
@@ -199,7 +153,7 @@ const DonateScreen = ({navigation}) => {
               Qty,
               owner,
               contactDetails,
-              Location
+              Location,
             } = doc.data();
             list.push({
               id: doc.id,
@@ -222,19 +176,17 @@ const DonateScreen = ({navigation}) => {
         setLoading(false);
       }
 
-    console.log('Posts: ', posts);
-    } 
-    catch (e) {
+      console.log('Posts: ', posts);
+    } catch (e) {
       console.log(e);
     }
   };
-      useEffect(() => {
-        fetchPosts();
-        setDeleted(false);
-      }, [deleted]);
-    
+  useEffect(() => {
+    fetchPosts();
+    setDeleted(false);
+  }, [deleted]);
 
-  const handleDelete = (postId) => {
+  const handleDelete = postId => {
     Alert.alert(
       'Delete post',
       'Are you sure?',
@@ -253,14 +205,14 @@ const DonateScreen = ({navigation}) => {
     );
   };
 
-  const deletePost = (postId) => {
+  const deletePost = postId => {
     console.log('Current Post Id: ', postId);
 
     firestore()
       .collection('donations')
       .doc(postId)
       .get()
-      .then((documentSnapshot) => {
+      .then(documentSnapshot => {
         if (documentSnapshot.exists) {
           const {postImg} = documentSnapshot.data();
 
@@ -274,7 +226,7 @@ const DonateScreen = ({navigation}) => {
                 console.log(`${postImg} has been deleted successfully.`);
                 deleteFirestoreData(postId);
               })
-              .catch((e) => {
+              .catch(e => {
                 console.log('Error while deleting the image. ', e);
               });
             // If the post image is not available
@@ -285,7 +237,7 @@ const DonateScreen = ({navigation}) => {
       });
   };
 
-  const deleteFirestoreData = (postId) => {
+  const deleteFirestoreData = postId => {
     firestore()
       .collection('donations')
       .doc(postId)
@@ -297,29 +249,28 @@ const DonateScreen = ({navigation}) => {
         );
         setDeleted(true);
       })
-      .catch((e) => console.log('Error deleting posst.', e));
+      .catch(e => console.log('Error deleting posst.', e));
   };
-    
+
   useEffect(() => {
     fetchPosts();
   }, []);
-
 
   return (
     <Container>
       <FlatList
         data={Donations}
-        renderItem={({item}) => ( <ItemCard
-          item={item}
-          onDelete={handleDelete}
-          onClick={deletePost}
-          onPress={() =>
-            navigation.navigate('Home Screen', {userId: item.userId})
-          }
-        />
-      )}
+        renderItem={({item}) => (
+          <ItemCard
+            item={item}
+            onDelete={handleDelete}
+            onClick={deletePost}
+            onPress={() =>
+              navigation.navigate('Home Screen', {userId: item.userId})
+            }
+          />
+        )}
         keyExtractor={item => item.id}
-        
         showsVerticalScrollIndicator={false}
       />
 
@@ -341,6 +292,7 @@ const DonateScreen = ({navigation}) => {
               padding: 40,
               borderRadius: 20,
               flex: 1,
+              position:'absolute'
             }}>
             <Text style={{alignSelf: 'center', fontSize: 30}}>
               Add Donations
@@ -383,7 +335,7 @@ const DonateScreen = ({navigation}) => {
               <TextInput
                 placeholder="Users Contact Details"
                 onChangeText={setOwners_number}></TextInput>
-                <TextInput
+              <TextInput
                 placeholder="Location"
                 onChangeText={setLocation}></TextInput>
             </View>
@@ -392,7 +344,6 @@ const DonateScreen = ({navigation}) => {
                 Add Donation
               </Text>
             </TouchableOpacity>
-           
           </View>
         </View>
       </Modal>
@@ -441,13 +392,12 @@ const styles = StyleSheet.create({
   },
   submitStyle: {
     backgroundColor: '#05375a',
-    top: 90,
+    top: 30,
     borderRadius: 15,
     paddingVertical: 10,
     paddingHorizontal: 20,
-   
   },
- 
+
   buttonText: {
     fontSize: 20,
     color: '#fff',
