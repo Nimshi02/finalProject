@@ -57,7 +57,27 @@ const AuthStack = () => {
       </Stack.Navigator>
     );
   }else{
-    return <LoginScreen/>
+    return (
+      <Stack.Navigator>
+       
+        <Stack.Screen
+          name="BeginScreen"
+          component={BeginScreen}
+          options={{headerShown: false}}
+        />
+       <Stack.Screen
+          name="SelectionScreen"
+          component={SelectionScreen}
+          options={{headerShown: false}}
+        /> 
+      <Stack.Screen name="LoginScreen" component={LoginScreen} options={{headerShown: false}}/>
+      <Stack.Screen name="SignUpScreen" component={SignUpScreen} options={{headerShown: false}}/>
+  
+        <Stack.Screen name="Home" component={HomeScreen} />
+  
+        <Stack.Screen name="Available Items" component={ViewItemsScreen} />
+      </Stack.Navigator>
+    );
   }
     
   

@@ -114,7 +114,7 @@ const updateSecureTextEntry=()=>{
             </View>
             
             <View >
-            <TouchableOpacity onPress={() => navigation.navigate('SignUpScreen')} style={styles.button}>
+            <TouchableOpacity onPress={()=>navigation.navigate("SignUpScreen")} style={styles.button}>
             <Text style={styles.text}>Sign Up</Text>
             </TouchableOpacity>
             </View>

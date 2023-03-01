@@ -1,9 +1,7 @@
-import * as Animatable from 'react-native-animatable';
 import React, {useState, useEffect, useContext} from 'react';
 import {
   View,
   Text,
-  Button,
   StyleSheet,
   FlatList,
   TouchableOpacity,
@@ -292,7 +290,7 @@ const DonateScreen = ({navigation}) => {
               padding: 40,
               borderRadius: 20,
               flex: 1,
-              position:'absolute'
+              position: 'absolute',
             }}>
             <Text style={{alignSelf: 'center', fontSize: 30}}>
               Add Donations

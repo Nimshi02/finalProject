@@ -11,9 +11,11 @@ import {authcontext} from '../Navigation/AuthenticationProvider';
 const SignUpScreen = ({navigation}) => {
   const {register} = useContext(authcontext);
   const [email, setEmail] = useState();
+  const[userName,setUserName]=useState(null);
   const [password, setPassword] = useState();
   const [cPassword, setCPassword] = useState();
   const[address,setAddress]=useState();
+  const[phone,setPhone]=useState();
   const [data, setdata] = react.useState({
     Email: '',
     UserName: '',
@@ -26,7 +28,19 @@ const SignUpScreen = ({navigation}) => {
     secureTextEntry: true,
     secureTextEntry2: true,
   });
-
+  const PasswordChange = val => {
+    setdata({
+      ...data,
+      password: val,
+      Password: val,
+    });
+  };
+  const ConfirmPasswordChange = val => {
+    setdata({
+      ...data,
+      ConfirmPassword: val,
+    });
+  };
   const updateSecureTextEntry = () => {
     setdata({
       ...data,
@@ -84,6 +98,21 @@ const SignUpScreen = ({navigation}) => {
       });
     }
   };
+  const textInputChange4 = val => {
+    if (val.length != 0) {
+      setdata({
+        ...data,
+        Address: val,
+        check_textInputChange4: true,
+      });
+    } else {
+      setdata({
+        ...data,
+        Address: val,
+        check_textInputChange4: false,
+      });
+    }
+  };
 
   return (
     <View style={styles.container}>
@@ -128,7 +157,9 @@ const SignUpScreen = ({navigation}) => {
             placeholder="Your UserName...................................................."
             style={styles.TextInput}
             autoCapitalize="none"
-            onChangeText={val => textInputChange2(val)}
+            onChangeText={val => {
+              setUserName(val);
+              textInputChange2(val);}}
           />
           {data.check_textInputChange2 ? (
             <Animatable.View animation={'bounceIn'}>
@@ -146,10 +177,30 @@ const SignUpScreen = ({navigation}) => {
             style={styles.TextInput}
             autoCapitalize="none"
             onChangeText={val => {
+              textInputChange3(val);
               setAddress(val);
             }}
           />
           {data.check_textInputChange3 ? (
+            <Animatable.View animation={'bounceIn'}>
+              <Feather name="check-circle" color="#071629" size={30} />
+            </Animatable.View>
+          ) : null}
+        </View>
+
+        <Text style={[styles.footer_text, {marginTop: 10}]}>Contact</Text>
+        <View style={styles.action}>
+          <Feather name="phone" color="#05375a" size={30} />
+          <TextInput
+            placeholder="Your Phone number.............................................."
+            style={styles.TextInput}
+            autoCapitalize="none"
+            onChangeText={val => {
+              textInputChange4(val);
+              setPhone(val);
+            }}
+          />
+          {data.check_textInputChange4 ? (
             <Animatable.View animation={'bounceIn'}>
               <Feather name="check-circle" color="#071629" size={30} />
             </Animatable.View>
@@ -215,7 +266,7 @@ const SignUpScreen = ({navigation}) => {
         <View>
           <TouchableOpacity
             style={styles.buttonStyle}
-            onPress={() => register(email, password)}>
+            onPress={() => register(email, password,address,userName,phone)}>
             <Text style={styles.textSign}>Sign Up</Text>
           </TouchableOpacity>
         </View>
@@ -322,7 +373,7 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     marginRight: 15,
     borderRadius: 8,
-    top: 20,
+    top: -20,
     left: 15,
     padding: 5,
   },

@@ -45,6 +45,7 @@
     "react-native-google-signin": "^2.1.1",
     "react-native-image-crop-picker": "0.34.1",
     "react-native-linear-gradient": "^2.6.2",
+    "react-native-maps": "^1.4.0",
     "react-native-onboarding-swiper": "^1.2.0",
     "react-native-reanimated": "^2.13.0",
     "react-native-safe-area-context": "^4.4.1",

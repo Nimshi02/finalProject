@@ -14,6 +14,7 @@ import ViewCommunityItems from '../Screen/ViewCommunityItems';
 import ViewShoppingList from '../Screen/ViewShoppingList';
 import profile from '../Screen/profile';
 import UpdateUserProfile from '../Screen/UpdateUserProfile';
+import viewRestuarentsItems from '../Screen/ViewRestaurentsItems';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -38,6 +39,21 @@ const FeedStack = ({navigation}) => (
           shadowColor: '#fff',
 
           elevation: 0,
+        },
+      }}/>
+       <Stack.Screen name="View Discounts" component={viewRestuarentsItems} options={{
+        
+      headerTintColor: '#fff',
+        headerTitleAlign: 'center',
+        headerTitleStyle: {
+          color: '#fff',
+          fontSize: 30,
+        },
+        headerStyle: {
+          backgroundColor: '#fff',
+          shadowColor: '#fff',
+
+          elevation: -1,
         },
       }}/>
     <Stack.Screen name="Donate Screen" component={DonateScreen} options={{
