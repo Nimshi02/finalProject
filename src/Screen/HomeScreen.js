@@ -8,7 +8,7 @@ const HomeScreen = ({navigation}) => {
       <Image source={require('../Assets/Logo-Blue.png')}
             style={{width: 100, height: 100 }}/>
       <TouchableOpacity style={styles.button} onPress={()=>navigation.navigate('View Available Items')}><Text style={styles.textStyle} >Available Items</Text></TouchableOpacity>
-      <TouchableOpacity style={styles.button}><Text style={styles.textStyle}>View Recpies</Text></TouchableOpacity>
+      <TouchableOpacity style={styles.button} onPress={()=>navigation.navigate('View Recipes')}><Text style={styles.textStyle}>View Recpies</Text></TouchableOpacity>
       <TouchableOpacity style={styles.button} onPress={()=>navigation.navigate('Community Items')}><Text style={styles.textStyle} >Community Items</Text></TouchableOpacity>
       <TouchableOpacity style={styles.button} onPress={()=>navigation.navigate('Shopping list')}><Text style={styles.textStyle} >Shopping List</Text></TouchableOpacity>
       {/* <TouchableOpacity style={styles.button}><Text style={styles.textStyle}>View Required Donations</Text></TouchableOpacity> */}

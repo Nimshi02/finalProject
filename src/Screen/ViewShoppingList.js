@@ -95,7 +95,9 @@ const ViewShoppingList = ({navigation}) => {
       console.log(e);
     }
   };
-  
+  useEffect(()=>{
+    fechItems(),[]
+  })
   useEffect(() => {
     fechItems();
     setDeleted(false);

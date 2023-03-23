@@ -15,6 +15,7 @@ import ViewShoppingList from '../Screen/ViewShoppingList';
 import profile from '../Screen/profile';
 import UpdateUserProfile from '../Screen/UpdateUserProfile';
 import viewRestuarentsItems from '../Screen/ViewRestaurentsItems';
+import ViewRecipes from '../Screen/ViewRecipes';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -51,11 +52,28 @@ const FeedStack = ({navigation}) => (
         },
         headerStyle: {
           backgroundColor: '#fff',
-          shadowColor: '#fff',
-
-          elevation: -1,
+        },
+        headerTintColor: '#fff',
+        headerTitleStyle: {
+          fontWeight: 'bold',
         },
       }}/>
+      <Stack.Screen name="View Recipes" component={ViewRecipes} options={{
+        
+        headerTintColor: '#fff',
+          headerTitleAlign: 'center',
+          headerTitleStyle: {
+            color: '#fff',
+            fontSize: 30,
+          },
+          headerStyle: {
+            backgroundColor: '#fff',
+          },
+          headerTintColor: '#fff',
+          headerTitleStyle: {
+            fontWeight: 'bold',
+          },
+        }}/>
     <Stack.Screen name="Donate Screen" component={DonateScreen} options={{
       headerTintColor: '#fff',
         headerTitle: 'Donations',

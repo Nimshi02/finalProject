@@ -23,5 +23,8 @@
             <category android:name="android.intent.category.LAUNCHER" />
         </intent-filter>
       </activity>
+      <meta-data
+    android:name="com.microsoft.mapsdk.maps.bing.api_key"
+    android:value="AtPi3tMXzYwVMGpoybwLELOReJLGdUA3XN8aJc7u1KaSNmOOHpqxRjQmPtAapCyy" />
     </application>
 </manifest>
