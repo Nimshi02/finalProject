@@ -322,6 +322,7 @@ const styles = StyleSheet.create({
       flex: 1,
       backgroundColor: 'white',
       paddingLeft: 40,
+      paddingRight:40
     },
     header: {
       backgroundColor: 'white',

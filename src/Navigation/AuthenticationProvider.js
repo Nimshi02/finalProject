@@ -10,6 +10,7 @@ export const AuthenticationProvider=({children})=> {
     return(
         <authcontext.Provider
         value={{user,setuser, 
+            //Login the user
             login:async(email,password)=>{
             try{
                 auth().signInWithEmailAndPassword(email,password);
@@ -19,6 +20,7 @@ export const AuthenticationProvider=({children})=> {
                 console.log(e);
             }
         },
+        //Register new user
         register: async(email, password,address,userName,phone)=>{
             try{
               await auth().createUserWithEmailAndPassword(email, password)
@@ -35,12 +37,10 @@ export const AuthenticationProvider=({children})=> {
                   userImg:"",
                   about: "Hero Who save the food!"
                 })
-                //ensure we catch any errors at this stage to advise us if something does go wrong
                 .catch(error => {
                     console.log('Something went wrong with added user to firestore: ', error);
                 })
               })
-              //we need to catch the whole sign up process if it fails too.
               .catch(error => {
                   console.log('Something went wrong with sign up: ', error);
               });
@@ -48,6 +48,7 @@ export const AuthenticationProvider=({children})=> {
               console.log(e);
             }
         },
+        //Logged out the user
         logout:async ()=> {
             try{
                 await auth().signOut()

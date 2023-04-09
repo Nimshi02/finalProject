@@ -231,7 +231,7 @@ export default Forum;
 const styles = StyleSheet.create({
   buttonStyle: {
       alignItems: 'center',
-      backgroundColor: '#d0c6c6',
+      backgroundColor: '#071629',
       width: 60,
       height: 60,
       borderRadius: 30,

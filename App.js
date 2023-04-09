@@ -28,8 +28,15 @@
 
 import React from 'react';
  import Providers from './src/Navigation';
+import { useEffect } from 'react';
+import {fetchPosts} from './src/Screen/pushnotification';
 
  const App =() => {
+  useEffect(()=>{
+    // NotificationListner();
+    // requestUserPermission();
+    fetchPosts();
+  },[])
   return (
     <Providers/>
   )

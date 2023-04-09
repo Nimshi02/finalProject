@@ -4,6 +4,8 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import { createDrawerNavigator } from '@react-navigation/drawer';
+import { Image,Text,View } from 'react-native';
 
 import HomeScreen from '../Screen/HomeScreen';
 import ViewItemsScreen from '../Screen/ViewItemsScreen';
@@ -17,8 +19,21 @@ import UpdateUserProfile from '../Screen/UpdateUserProfile';
 import viewRestuarentsItems from '../Screen/ViewRestaurentsItems';
 import ViewRecipes from '../Screen/ViewRecipes';
 
+
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
+
+const LogoTitle = () => {
+  return (
+    <View style={{flexDirection:"row"}}>
+       <Image
+      style={{ width: 40, height:40 }}
+      source={require('../Assets/Logo-Blue.png')}
+    /><Text style={{marginTop:8, marginLeft:10, fontSize:18,color:'#071629',fontWeight:'bold'}}>UseFood</Text>
+    </View>
+   
+  );
+};
 
 const FeedStack = ({navigation}) => (
   <Stack.Navigator>
@@ -43,18 +58,18 @@ const FeedStack = ({navigation}) => (
         },
       }}/>
        <Stack.Screen name="View Discounts" component={viewRestuarentsItems} options={{
-        
-      headerTintColor: '#fff',
-        headerTitleAlign: 'center',
+         headerTitle: () => <LogoTitle /> ,
+        headerTitleAlign: 'left',
         headerTitleStyle: {
-          color: '#fff',
+          color: '#000',
           fontSize: 30,
         },
         headerStyle: {
           backgroundColor: '#fff',
         },
-        headerTintColor: '#fff',
+        headerTintColor: '#071629',
         headerTitleStyle: {
+          color:'#000',
           fontWeight: 'bold',
         },
       }}/>
@@ -118,7 +133,7 @@ const ForumStack = ({navigation}) => (
           fontSize: 30,
         },
         headerStyle: {
-          backgroundColor: '#071629',
+          backgroundColor: '#fff',
           shadowColor: '#fff',
 
           elevation: 0,
@@ -257,4 +272,6 @@ const AppStack = () => {
   );
 };
 
-export default AppStack;
+ export default AppStack;
+
+
