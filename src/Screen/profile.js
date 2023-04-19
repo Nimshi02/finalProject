@@ -14,7 +14,6 @@ const Profile = ({navigation}) => {
 
   const fetchData = async () => {
     try {
-      
 
       await firestore()
         .collection('users')
@@ -34,7 +33,6 @@ const Profile = ({navigation}) => {
               setImage(userImg);
           });
         });
-
 
       console.log('Posts: ', posts);
     } catch (e) {

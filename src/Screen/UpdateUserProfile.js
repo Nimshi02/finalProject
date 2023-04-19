@@ -68,7 +68,6 @@ const UndateUserProfile = ({navigation}) => {
   };
 
   const uploadImage = async () => {
-    alert(userImage);
     if (userImage == null) {
       return null;
     }
@@ -138,7 +137,6 @@ const UndateUserProfile = ({navigation}) => {
         about: about,
         })
       .then(() => {
-        console.log('User Updated');
         Alert.alert('Profile Updated!');
       });
     })

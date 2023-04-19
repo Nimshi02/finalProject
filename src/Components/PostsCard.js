@@ -1,7 +1,7 @@
 import React from "react";
 import {Container,Card,User,UserImage,UserName,UserInfoText,PostDate,PostImage,PostText} from '../Styles/ForumStyle';
 import { View, StyleSheet } from "react-native";
-
+import moment from "moment";
 const PostCard=({item})=>{
     return(
         <View style={styles.card}>
@@ -9,7 +9,7 @@ const PostCard=({item})=>{
             <UserImage source={{uri:item.userImage}}/> 
             <UserInfoText>
             <UserName>{item.userName}</UserName>
-            <PostDate>{item.postTime.toString()}</PostDate>
+            <PostDate>{moment(item.postTime.toDate()).fromNow()}</PostDate>
               </UserInfoText>                    
         </User> 
         <PostText>{item.postText}</PostText>

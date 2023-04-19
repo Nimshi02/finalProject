@@ -8,9 +8,21 @@ align-content:center;
 `;
 export const Card=styled.View`
 background-color:#f8f8f8;
-width:100%;
-margin-bottom:20px;
-border-radius:10px
+width:95%;
+margin-bottom:30px;
+margin-left:10px;
+margin-right:0px;
+padding-top:10px;
+padding-bottom:10px;
+border-radius:20px;
+shadow-color: #071629;
+shadow-offset: {
+  width: 0;
+  height: 0;
+},
+shadow-opacity: 0;
+shadow-radius: 1px;
+elevation: 6;
 `;
 
 export const Items = styled.View`
@@ -43,7 +55,7 @@ font-weight:bold;
 export const QtyWrap=styled.View`
 flex-direction:column;
 justify-content:center;
-margin-left:90px
+margin-left:70px
 `;
 export const RemainQty=styled.Text`
 font-size:14px;

@@ -1,6 +1,6 @@
 import React from "react";
 import {Container,Card,Item,ItemImage,ItemInfoText,PostDate,ItemName, ItemHeading, HeadingWrapper, HeadingWrapper2, Qty} from '../Styles/DonationStyle';
-
+import moment from "moment";
 
 const CommunityItem=({item})=>{
     return(
@@ -10,8 +10,8 @@ const CommunityItem=({item})=>{
         <Item>
             <ItemImage source={item.ItemImage}/>                 
         </Item> 
-        <ItemName>{item.ItemName}</ItemName                >
-            <PostDate>{item.PostDate}</PostDate> 
+        <ItemName>{item.ItemName}</ItemName>
+            <PostDate>{moment(item.PostDate.toDate()).fromNow()}</PostDate> 
             <Qty>{item.Qty}</Qty>  
     </Card> 
     );

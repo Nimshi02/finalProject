@@ -43,7 +43,7 @@ const RFoodDealCard = ({item,onDelete,onClick}) => {
       )} */}
 
       <Item>
-        <ItemImage source={{uri:item.userImage}} style={{top:30,left:30}}/>
+        <ItemImage source={{uri:item.ItemImage}} style={{top:30,left:30}}/>
       </Item>
       <View style={{top:30}}>
       <ItemName>{item.ItemName}</ItemName>

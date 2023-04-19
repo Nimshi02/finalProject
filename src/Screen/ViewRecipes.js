@@ -23,7 +23,6 @@ const ViewRecipes = ({navigation}) => {
   const [userIngredients,setPosts]=useState(null);
   const {user,logout}=useContext(authcontext);
   const loadRecipes = async () => {
-    console.log('here');
     const recipes = [];
     fetch('https://test-service-flask.onrender.com/recipes')
       .then(response => response.json())
@@ -90,14 +89,17 @@ const ViewRecipes = ({navigation}) => {
     Object.entries(ingredients[0]).map(
       ([ingredient, quantity]) => {
         var i=0;
-        console.log(userIngredients[i]);
-        console.log(userIngredients[i].ItemName);
+        //console.log(userIngredients[i]);
+        //console.log(userIngredients[i].ItemName);
           if (userIngredients[i].ItemName==ingredient)
-          console.log("true");
+         console.log(ingredients.length);
           for(i=0;i<ingredients.length;i++)
               {
+                console.log("user ingredient : ",userIngredients[i].ItemName);
+                console.log(ingredient);
                 if (userIngredients[i].ItemName==ingredient)
                 {
+                  
                   const amount = userIngredients[i].Qty - (count*quantity);
                   console.log(amount);
                   console.log("now updating");

@@ -50,7 +50,6 @@ const ViewItemsScreen = ({navigation}) => {
   };
 
   const addItem = async () => {
-    alert('Pressed this');
     const imageUrl = await uploadImage();
     console.log('Image Url: ', imageUrl);
     firestore()
@@ -65,8 +64,7 @@ const ViewItemsScreen = ({navigation}) => {
         Qty: Qty,
       })
       .then(() => {
-        console.log('Post Added!');
-        alert('Post published!', 'Your post has been published Successfully!');
+        console.log("Added");
       })
       .catch(error => {
         console.log(
@@ -78,7 +76,6 @@ const ViewItemsScreen = ({navigation}) => {
   };
 
   const uploadImage = async () => {
-    alert(image);
     if (image == null) {
       return null;
     }
@@ -98,9 +95,6 @@ const ViewItemsScreen = ({navigation}) => {
 
     // Set transferred state
     task.on('state_changed', taskSnapshot => {
-      console.log(
-        `${taskSnapshot.bytesTransferred} transferred out of ${taskSnapshot.totalBytes}`,
-      );
 
       setTransferred(
         Math.round(taskSnapshot.bytesTransferred / taskSnapshot.totalBytes) *
@@ -120,7 +114,6 @@ const ViewItemsScreen = ({navigation}) => {
       //   'Image uploaded!',
       //   'Your image has been uploaded to the Firebase Cloud Storage Successfully!',
       // );
-      console.log('Inside the function that gives an error');
       console.log(url);
       return url;
     } catch (e) {
@@ -282,8 +275,11 @@ const ViewItemsScreen = ({navigation}) => {
               backgroundColor: '#ffffffff',
               margin: 50,
               padding: 40,
+              width:300,
+              height:600,
               borderRadius: 20,
               flex: 1,
+              position:'absolute'
             }}>
             <Text style={{alignSelf: 'center', fontSize: 30}}>
               Add Item
@@ -386,7 +382,7 @@ const styles = StyleSheet.create({
   },
   addBtnStyle: {
     alignItems: 'center',
-    backgroundColor: '#d0c6c6',
+    backgroundColor: '#071629',
     width: 60,
     height: 60,
     borderRadius: 30,

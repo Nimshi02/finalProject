@@ -164,6 +164,7 @@ const ViewCommunityItems = ({navigation}) => {
               Expiredate,
               Qty,
               owner,
+              Location,
               owners_number: contactDetails,
             });
           });
@@ -244,11 +245,7 @@ const ViewCommunityItems = ({navigation}) => {
       .doc(postId)
       .delete()
       .then(() => {
-        Alert.alert(
-          'Post deleted!',
-          'Your post has been deleted successfully!',
-        );
-        setDeleted(true);
+         setDeleted(true);
       })
       .catch((e) => console.log('Error deleting posst.', e));
   };
@@ -319,7 +316,7 @@ const ViewCommunityItems = ({navigation}) => {
               </TouchableOpacity>
             )}
 
-            <View style={{top: 70}}>
+            <View style={{top: 10}}>
               <TextInput
                 placeholder="Product Name"
                 onChangeText={setItemName}></TextInput>
@@ -361,7 +358,7 @@ const styles = StyleSheet.create({
     width: 35,
     height: 35,
     borderRadius: 30,
-    top: 35,
+    top: 0,
     left: 140,
     padding: 5,
     shadowColor: '#9f9393',
@@ -389,12 +386,12 @@ const styles = StyleSheet.create({
     backgroundColor: '#d4d4d3',
     width: 120,
     height: 120,
-    top: 80,
+    top: 40,
     left: 50,
   },
   submitStyle: {
     backgroundColor: '#05375a',
-    top: 90,
+    top: 20,
     borderRadius: 15,
     paddingVertical: 10,
     paddingHorizontal: 20,
@@ -407,7 +404,7 @@ const styles = StyleSheet.create({
   },
   addBtnStyle: {
     alignItems: 'center',
-    backgroundColor: '#d0c6c6',
+    backgroundColor: '#071629',
     width: 60,
     height: 60,
     borderRadius: 30,

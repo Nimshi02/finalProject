@@ -47,36 +47,38 @@ const FeedStack = ({navigation}) => (
         headerTitle: 'Available Items',
         headerTitleAlign: 'center',
         headerTitleStyle: {
-          color: '#fff',
+          color: '#071629',
           fontSize: 30,
+          fontWeight:'bold'
         },
+        headerTintColor: '#071629',
         headerStyle: {
-          backgroundColor: '#071629',
+          backgroundColor: '#fff',
           shadowColor: '#fff',
 
           elevation: 0,
         },
       }}/>
        <Stack.Screen name="View Discounts" component={viewRestuarentsItems} options={{
-         headerTitle: () => <LogoTitle /> ,
+         headerTitle: "View Disocunts" ,
         headerTitleAlign: 'left',
         headerTitleStyle: {
-          color: '#000',
+          color: '#071629',
           fontSize: 30,
+          fontWeight:'bold'
         },
         headerStyle: {
           backgroundColor: '#fff',
         },
         headerTintColor: '#071629',
         headerTitleStyle: {
-          color:'#000',
           fontWeight: 'bold',
         },
       }}/>
       <Stack.Screen name="View Recipes" component={ViewRecipes} options={{
-        
+        headerTitle: 'Available Items',
         headerTintColor: '#fff',
-          headerTitleAlign: 'center',
+        headerTitleAlign: 'left',
           headerTitleStyle: {
             color: '#fff',
             fontSize: 30,
@@ -84,36 +86,38 @@ const FeedStack = ({navigation}) => (
           headerStyle: {
             backgroundColor: '#fff',
           },
-          headerTintColor: '#fff',
+          headerTintColor: '#071629',
           headerTitleStyle: {
             fontWeight: 'bold',
           },
         }}/>
     <Stack.Screen name="Donate Screen" component={DonateScreen} options={{
-      headerTintColor: '#fff',
+      headerTintColor: '#071629',
         headerTitle: 'Donations',
         headerTitleAlign: 'center',
         headerTitleStyle: {
-          color: '#fff',
+          color: '#071629',
           fontSize: 30,
+          fontWeight:'bold'
         },
         headerStyle: {
-          backgroundColor: '#071629',
+          backgroundColor: '#fff',
           shadowColor: '#fff',
 
           elevation: 0,
         },
       }}/>
     <Stack.Screen name="Community Items" component={ViewCommunityItems} options={{
-      headerTintColor: '#fff',
+      headerTintColor: '#071629',
         headerTitle: 'Community Items',
         headerTitleAlign: 'center',
         headerTitleStyle: {
-          color: '#fff',
+          color: '#071629',
           fontSize: 30,
+          fontWeight:'bold'
         },
         headerStyle: {
-          backgroundColor: '#071629',
+          backgroundColor: '#fff',
           shadowColor: '#fff',
 
           elevation: 0,
@@ -126,11 +130,13 @@ const ForumStack = ({navigation}) => (
   <Stack.Navigator>
     <Stack.Screen name="Forum" component={Forum} 
     options={{
+      headerTintColor: '#071629',
         headerTitle: 'Forum',
         headerTitleAlign: 'center',
         headerTitleStyle: {
-          color: '#fff',
+          color: '#071629',
           fontSize: 30,
+          fontWeight:'bold',
         },
         headerStyle: {
           backgroundColor: '#fff',
@@ -155,11 +161,12 @@ const CartStack = ({navigation}) => (
         headerTitle: 'Shopping List',
         headerTitleAlign: 'center',
         headerTitleStyle: {
-          color: '#fff',
+          color: '#071629',
           fontSize: 30,
+          fontWeight:'bold',
         },
         headerStyle: {
-          backgroundColor: '#071629',
+          backgroundColor: '#fff',
           shadowColor: '#fff',
 
           elevation: 0,
@@ -178,11 +185,12 @@ const ProfileStack = ({navigation}) => (
         headerTitle: 'Profile',
         headerTitleAlign: 'center',
         headerTitleStyle: {
-          color: '#fff',
+          color: '#071629',
           fontSize: 30,
+          fontWeight:'bold',
         },
         headerStyle: {
-          backgroundColor: '#071629',
+          backgroundColor: '#fff',
           shadowColor: '#fff',
 
           elevation: 0,
@@ -196,11 +204,12 @@ const ProfileStack = ({navigation}) => (
         headerTitle: 'Update Profile',
         headerTitleAlign: 'center',
         headerTitleStyle: {
-          color: '#fff',
+          color: '#071629',
           fontSize: 30,
+          fontWeight:'bold',
         },
         headerStyle: {
-          backgroundColor: '#071629',
+          backgroundColor: '#fff',
           shadowColor: '#fff',
 
           elevation: 0,

@@ -232,58 +232,10 @@ const ViewRestuarentsItems = ({navigation}) => {
       console.log(e);
     }
   };
-
-  const FetchTopDealsFood = async () => {
-    try {
-      const list = [];
-
-      await firestore()
-        .collection('FoodDeals')
-        .orderBy('PostDate', 'desc')
-        .get()
-        .then(querySnapshot => {
-          console.log('Total Posts: ', querySnapshot.size);
-
-          querySnapshot.forEach(doc => {
-            const {
-              resId,
-              ItemName,
-              Type,
-              ItemImage,
-              PostDate,
-              ValidDate,
-              description,
-              discountRate
-            } = doc.data();
-            list.push({
-              resId,
-              ItemName,
-              Type,
-              ItemImage,
-              PostDate,
-              ValidDate,
-              description,
-              discountRate
-            });
-          });
-        });
-
-      setTopDeals(list);
-
-      if (loading) {
-        setLoading(false);
-      }
-
-    } catch (e) {
-      console.log(e);
-    }
-  };
   useEffect(() => {
     FetchRecommendFood();
   }, []);
-  useEffect(() => {
-    FetchTopDealsFood();
-  }, []);
+
   return (
     <SafeAreaView style={styles.container}>
        <Header

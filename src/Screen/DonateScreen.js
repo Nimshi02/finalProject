@@ -79,7 +79,6 @@ const DonateScreen = ({navigation}) => {
   };
 
   const uploadImage = async () => {
-    alert(image);
     if (image == null) {
       return null;
     }
@@ -241,10 +240,7 @@ const DonateScreen = ({navigation}) => {
       .doc(postId)
       .delete()
       .then(() => {
-        Alert.alert(
-          'Post deleted!',
-          'Your post has been deleted successfully!',
-        );
+
         setDeleted(true);
       })
       .catch(e => console.log('Error deleting posst.', e));
@@ -402,7 +398,7 @@ const styles = StyleSheet.create({
   },
   addBtnStyle: {
     alignItems: 'center',
-    backgroundColor: '#d0c6c6',
+    backgroundColor: '#071629',
     width: 60,
     height: 60,
     borderRadius: 30,

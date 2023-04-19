@@ -14,8 +14,8 @@ const AvailableItem=({item,onDelete}) =>{
                     </ItemInfoText>
                     <QtyWrap>
                     <RemainQty>{item.Qty}   <TouchableOpacity ><View>
-          <FontAwesome name="trash-o" color="#000" size={20} onPress={() => onDelete(item.id)} />
-        </View></TouchableOpacity>  </RemainQty>
+          <FontAwesome name="trash-o" color="#000" size={23} onPress={() => onDelete(item.id)} />
+        </View></TouchableOpacity>       </RemainQty>
 
                     </QtyWrap>
                    
